@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { ChallengesContext } from "../../contexts/ChellengesContext";
+import { ChallengesContext } from "../../contexts/ChallengesContext";
 import {
   Container,
   ExperienceInitial,

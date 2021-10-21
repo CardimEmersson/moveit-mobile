@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { ChallengesProvider } from "./src/contexts/ChellengesContext";
+import { ChallengesProvider } from "./src/contexts/ChallengesContext";
 
 import theme from "./src/styles/theme";
 
