@@ -10,13 +10,11 @@ import { LogBox } from "react-native";
 import {
   useFonts,
   Inter_400Regular,
+  Inter_600SemiBold,
   Inter_500Medium,
 } from "@expo-google-fonts/inter";
 
 import {
-  Rajdhani_300Light,
-  Rajdhani_400Regular,
-  Rajdhani_500Medium,
   Rajdhani_600SemiBold,
   Rajdhani_700Bold,
 } from "@expo-google-fonts/rajdhani";
@@ -29,6 +27,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
+    Inter_600SemiBold,
     Rajdhani_600SemiBold,
     Rajdhani_700Bold,
   });

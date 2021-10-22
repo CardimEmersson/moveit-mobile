@@ -9,7 +9,6 @@ export const Container = styled.View`
   shadow-offset: 10px 10px;
   shadow-opacity: 0.8;
   elevation: 3;
-  padding: 24px;
 
   align-items: center;
   justify-content: center;
@@ -17,6 +16,7 @@ export const Container = styled.View`
 
 export const ChallengeNotActive = styled.View`
   align-items: center;
+  padding: 24px;
 `;
 
 export const Title = styled.Text`

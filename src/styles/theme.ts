@@ -15,6 +15,7 @@ export default {
   fonts: {
     primary_400: "Inter_400Regular",
     primary_500: "Inter_500Medium",
+    primary_600: "Inter_600SemiBold",
     secondary_600: "Rajdhani_600SemiBold",
     secondary_700: "Rajdhani_700Bold",
   },
