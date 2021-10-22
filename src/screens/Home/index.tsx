@@ -1,4 +1,5 @@
 import React from "react";
+import { ChallengeBox } from "../../components/ChallengeBox";
 import { CompleteChallenges } from "../../components/CompleteChallenges";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import { Profile } from "../../components/Profile";
@@ -11,9 +12,11 @@ function Home() {
       <ExperienceBar />
       <CompleteChallenges />
 
-      <CountdownContainer></CountdownContainer>
+      <ChallengeContainer>
+        <ChallengeBox />
+      </ChallengeContainer>
 
-      <ChallengeContainer></ChallengeContainer>
+      <CountdownContainer></CountdownContainer>
     </Container>
   );
 }
