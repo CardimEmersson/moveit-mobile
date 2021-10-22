@@ -1,9 +1,15 @@
 import React from "react";
 import { ChallengeBox } from "../../components/ChallengeBox";
 import { CompleteChallenges } from "../../components/CompleteChallenges";
+import { Countdown } from "../../components/Countdown";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import { Profile } from "../../components/Profile";
-import { Container, CountdownContainer, ChallengeContainer } from "./styles";
+import {
+  Container,
+  Main,
+  CountdownContainer,
+  ChallengeContainer,
+} from "./styles";
 
 function Home() {
   return (
@@ -12,11 +18,15 @@ function Home() {
       <ExperienceBar />
       <CompleteChallenges />
 
-      <ChallengeContainer>
-        <ChallengeBox />
-      </ChallengeContainer>
+      <Main showsVerticalScrollIndicator={false}>
+        <ChallengeContainer>
+          <ChallengeBox />
+        </ChallengeContainer>
 
-      <CountdownContainer></CountdownContainer>
+        <CountdownContainer>
+          <Countdown />
+        </CountdownContainer>
+      </Main>
     </Container>
   );
 }

@@ -6,6 +6,8 @@ export const Container = styled.View`
   padding: 40px 20px 0;
 `;
 
-export const CountdownContainer = styled.View``;
+export const Main = styled.ScrollView``;
 
 export const ChallengeContainer = styled.View``;
+
+export const CountdownContainer = styled.View``;
