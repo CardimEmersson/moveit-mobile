@@ -44,6 +44,10 @@ export const ChallengeDescription = styled.Text`
 
 export const ChallengeFooter = styled.View`
   flex-direction: row;
+  overflow: hidden;
+
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;
 
 export const ChallengeFailedButton = styled(RectButton)`

@@ -20,7 +20,6 @@ function ChallengeActive() {
       <WinExperience>Ganhe 400 xp</WinExperience>
 
       <ChallengeContent>
-        {/* <ChallengeImage source={{ uri: `../../assets/icons/body.svg` }} /> */}
         <BodySvg />
         <TextNewChallenge>Novo desafio</TextNewChallenge>
         <ChallengeDescription>
