@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CheckCircleSvg from "../../assets/icons/check_circle.svg";
 import CloseSvg from "../../assets/icons/close.svg";
 import PlaySvg from "../../assets/icons/play_arrow.svg";
+import { CountdownContext } from "../../contexts/CountdownContext";
 import {
   Container,
   CountdownWrapper,
@@ -24,40 +25,71 @@ import {
 } from "./styles";
 
 function Countdown() {
+  const {
+    minutes,
+    seconds,
+    hasFinished,
+    isActive,
+    resetCountdown,
+    startCountdown,
+  } = useContext(CountdownContext);
+
+  // const [minuteLeft, setMinuteLeft] = useState<string>();
+  // const [minuteRight, setMinuteRight] = useState<string>();
+  // const [secondLeft, setSecondLeft] = useState<string>();
+  // const [secondRight, setSecondRight] = useState<string>();
+
+  const [minuteLeft, minuteRight] = String(minutes).padStart(2, "0").split("");
+  const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("");
+
+  // useEffect(() => {
+  //   setMinuteLeft(String(minutes).padStart(2, "0").split("")[0]);
+  //   setMinuteRight(String(minutes).padStart(2, "0").split("")[1]);
+
+  //   setSecondLeft(String(seconds).padStart(2, "0").split("")[0]);
+  //   setSecondRight(String(seconds).padStart(2, "0").split("")[1]);
+  // }, [seconds]);
+
   return (
     <Container>
       <CountdownWrapper>
         <MinutesWrapper>
-          <MinuteLeft>1</MinuteLeft>
-          <MinuteRight>0</MinuteRight>
+          <MinuteLeft>{minuteLeft}</MinuteLeft>
+          <MinuteRight>{minuteRight}</MinuteRight>
         </MinutesWrapper>
         <Separator>:</Separator>
         <SecondsWrapper>
-          <SecondLeft>3</SecondLeft>
-          <SecondRight>0</SecondRight>
+          <SecondLeft>{secondLeft}</SecondLeft>
+          <SecondRight>{secondRight}</SecondRight>
         </SecondsWrapper>
       </CountdownWrapper>
 
-      <ClosedCycleWrapper>
-        <ClosedCycleButton>
-          <TextClosedCycle>Ciclo encerrado</TextClosedCycle>
-          <CheckCircleSvg />
-        </ClosedCycleButton>
-      </ClosedCycleWrapper>
-
-      <AbandonCycleWrapper>
-        <AbandonCycleButton>
-          <TextAbandonCycle>Abandonar ciclo</TextAbandonCycle>
-          <CloseSvg />
-        </AbandonCycleButton>
-      </AbandonCycleWrapper>
-
-      <StartCountWrapper>
-        <StartCountButton>
-          <TextStartCount>Iniciar um ciclo</TextStartCount>
-          <PlaySvg />
-        </StartCountButton>
-      </StartCountWrapper>
+      {hasFinished ? (
+        <ClosedCycleWrapper>
+          <ClosedCycleButton>
+            <TextClosedCycle>Ciclo encerrado</TextClosedCycle>
+            <CheckCircleSvg />
+          </ClosedCycleButton>
+        </ClosedCycleWrapper>
+      ) : (
+        <>
+          {isActive ? (
+            <AbandonCycleWrapper>
+              <AbandonCycleButton onPress={resetCountdown}>
+                <TextAbandonCycle>Abandonar ciclo</TextAbandonCycle>
+                <CloseSvg />
+              </AbandonCycleButton>
+            </AbandonCycleWrapper>
+          ) : (
+            <StartCountWrapper>
+              <StartCountButton onPress={startCountdown}>
+                <TextStartCount>Iniciar um ciclo</TextStartCount>
+                <PlaySvg />
+              </StartCountButton>
+            </StartCountWrapper>
+          )}
+        </>
+      )}
     </Container>
   );
 }

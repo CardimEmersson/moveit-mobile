@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Alert, Modal } from "react-native";
 import NewLevelSvg from "../../assets/icons/levelup.svg";
 import CloseSvg from "../../assets/icons/close.svg";
@@ -14,27 +14,17 @@ import {
   Overlay,
   CloseButton,
 } from "./styles";
+import { ChallengesContext } from "../../contexts/ChallengesContext";
 
 function ModalLevelUp() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { level, closeLevelUpModal, isLevelUpModalOpen } =
+    useContext(ChallengesContext);
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setModalVisible(!modalVisible);
-      }}
-    >
+    <Modal animationType="fade" transparent={true} visible={isLevelUpModalOpen}>
       <Overlay>
         <Container>
-          <CloseButton
-            onPress={() => {
-              setModalVisible(false);
-            }}
-          >
+          <CloseButton onPress={closeLevelUpModal}>
             <CloseSvg />
           </CloseButton>
 
@@ -46,7 +36,7 @@ function ModalLevelUp() {
               width={200}
               height={150}
             />
-            <NewLevel>2</NewLevel>
+            <NewLevel>{level}</NewLevel>
           </NewLevelWrapper>
           <Congratulations>Parabéns</Congratulations>
           <Info>Você alcançou um novo level.</Info>

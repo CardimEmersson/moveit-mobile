@@ -1,10 +1,11 @@
 import React from "react";
 import BodySvg from "../../assets/icons/body.svg";
+import EyeSvg from "../../assets/icons/eye.svg";
+import { Challenge, typeChallenge } from "../../contexts/ChallengesContext";
 import {
   Container,
   WinExperience,
   ChallengeContent,
-  ChallengeImage,
   TextNewChallenge,
   ChallengeDescription,
   ChallengeFooter,
@@ -14,26 +15,44 @@ import {
   TextChallengeSucceeded,
 } from "./styles";
 
-function ChallengeActive() {
+interface ChallengeActiveProps {
+  activeChallenge: Challenge;
+  handleChallengeSucceeded: () => void;
+  handleChallengeFailed: () => void;
+}
+
+function ChallengeActive({
+  activeChallenge,
+  handleChallengeSucceeded,
+  handleChallengeFailed,
+}: ChallengeActiveProps) {
+  function getimageType(type: typeChallenge) {
+    switch (type) {
+      case "body":
+        return <BodySvg />;
+      case "eye":
+        return <EyeSvg />;
+    }
+  }
+
   return (
     <Container>
-      <WinExperience>Ganhe 400 xp</WinExperience>
+      <WinExperience>Ganhe {activeChallenge.amount} xp</WinExperience>
 
       <ChallengeContent>
-        <BodySvg />
+        {getimageType(activeChallenge.type)}
         <TextNewChallenge>Novo desafio</TextNewChallenge>
         <ChallengeDescription>
-          É agora Emersson, bora lá meu parça. Caminhe por 3 minutos e estique
-          suas pernas pra você ficar saudável.
+          {activeChallenge.description}
         </ChallengeDescription>
       </ChallengeContent>
 
       <ChallengeFooter>
-        <ChallengeFailedButton>
+        <ChallengeFailedButton onPress={handleChallengeFailed}>
           <TextChallengeFailed>Falhei</TextChallengeFailed>
         </ChallengeFailedButton>
 
-        <ChallengeSucceededButton>
+        <ChallengeSucceededButton onPress={handleChallengeSucceeded}>
           <TextChallengeSucceeded>Completei</TextChallengeSucceeded>
         </ChallengeSucceededButton>
       </ChallengeFooter>

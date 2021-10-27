@@ -5,6 +5,7 @@ import { Countdown } from "../../components/Countdown";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import { ModalLevelUp } from "../../components/ModalLevelUp";
 import { Profile } from "../../components/Profile";
+import { CountdownProvider } from "../../contexts/CountdownContext";
 import {
   Container,
   Main,
@@ -24,12 +25,13 @@ function Home() {
           <ChallengeBox />
         </ChallengeContainer>
 
-        <CountdownContainer>
-          <Countdown />
-        </CountdownContainer>
-
-        <ModalLevelUp />
+        <CountdownProvider>
+          <CountdownContainer>
+            <Countdown />
+          </CountdownContainer>
+        </CountdownProvider>
       </Main>
+      <ModalLevelUp />
     </Container>
   );
 }
