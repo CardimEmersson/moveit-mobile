@@ -2,13 +2,14 @@ import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
+  padding: 0 20px;
+`;
+
+export const ChallengeCard = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
 
-  shadow-color: rgba(0, 0, 0, 0.05);
-  shadow-offset: 10px 10px;
-  shadow-opacity: 0.8;
-  elevation: 3;
+  elevation: 5;
 
   align-items: center;
   justify-content: center;

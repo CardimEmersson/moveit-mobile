@@ -1,9 +1,10 @@
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
+  padding: 40px 20px 0 20px;
 `;
 
 export const ImageProfile = styled.Image`

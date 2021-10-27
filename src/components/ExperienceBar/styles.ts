@@ -6,7 +6,7 @@ interface ProgressFillProps {
 }
 
 export const Container = styled.View`
-  padding: 10px 0;
+  padding: 10px 20px;
   flex-direction: row;
   align-items: center;
   justify-content: center;

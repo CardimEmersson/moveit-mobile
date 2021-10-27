@@ -9,20 +9,23 @@ import {
   Title,
   ContentWrapper,
   Subtitle,
+  ChallengeCard,
 } from "./styles";
 
 function ChallengeBox() {
   return (
     <Container>
-      <ChallengeActive />
+      <ChallengeCard>
+        <ChallengeActive />
 
-      {/* <ChallengeNotActive>
+        {/* <ChallengeNotActive>
         <Title>{"Finalize um ciclo \n para receber um desafio"}</Title>
         <ContentWrapper>
           <LevelUpSvg width={RFValue(40)} />
           <Subtitle>Avance de level completando desafios</Subtitle>
         </ContentWrapper>
       </ChallengeNotActive> */}
+      </ChallengeCard>
     </Container>
   );
 }

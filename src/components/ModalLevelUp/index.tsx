@@ -16,7 +16,7 @@ import {
 } from "./styles";
 
 function ModalLevelUp() {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <Modal
