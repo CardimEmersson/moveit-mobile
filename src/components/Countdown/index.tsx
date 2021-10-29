@@ -34,21 +34,8 @@ function Countdown() {
     startCountdown,
   } = useContext(CountdownContext);
 
-  // const [minuteLeft, setMinuteLeft] = useState<string>();
-  // const [minuteRight, setMinuteRight] = useState<string>();
-  // const [secondLeft, setSecondLeft] = useState<string>();
-  // const [secondRight, setSecondRight] = useState<string>();
-
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, "0").split("");
   const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("");
-
-  // useEffect(() => {
-  //   setMinuteLeft(String(minutes).padStart(2, "0").split("")[0]);
-  //   setMinuteRight(String(minutes).padStart(2, "0").split("")[1]);
-
-  //   setSecondLeft(String(seconds).padStart(2, "0").split("")[0]);
-  //   setSecondRight(String(seconds).padStart(2, "0").split("")[1]);
-  // }, [seconds]);
 
   return (
     <Container>

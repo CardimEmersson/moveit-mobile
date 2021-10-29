@@ -21,6 +21,9 @@
         "wasm",
         "svg"
       ]
+    },
+    "android": {
+      "package": "move.it"
     }
   },
   "name": "moveit"

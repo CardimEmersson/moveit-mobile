@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   padding: 0 20px;
+  padding-top: 20px;
 `;
 
 export const ChallengeCard = styled.View`

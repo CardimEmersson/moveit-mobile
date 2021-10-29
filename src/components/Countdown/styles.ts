@@ -4,6 +4,7 @@ import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   margin: 0 20px;
+  padding-bottom: 20px;
 `;
 
 export const CountdownWrapper = styled.View`

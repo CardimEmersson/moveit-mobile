@@ -9,6 +9,7 @@ import { CountdownProvider } from "../../contexts/CountdownContext";
 import {
   Container,
   Main,
+  MainScroll,
   CountdownContainer,
   ChallengeContainer,
 } from "./styles";
@@ -20,17 +21,19 @@ function Home() {
       <ExperienceBar />
       <CompleteChallenges />
 
-      <Main showsVerticalScrollIndicator={false}>
-        <ChallengeContainer>
-          <ChallengeBox />
-        </ChallengeContainer>
+      <CountdownProvider>
+        <Main>
+          <MainScroll showsVerticalScrollIndicator={false}>
+            <ChallengeContainer>
+              <ChallengeBox />
+            </ChallengeContainer>
 
-        <CountdownProvider>
-          <CountdownContainer>
-            <Countdown />
-          </CountdownContainer>
-        </CountdownProvider>
-      </Main>
+            <CountdownContainer>
+              <Countdown />
+            </CountdownContainer>
+          </MainScroll>
+        </Main>
+      </CountdownProvider>
       <ModalLevelUp />
     </Container>
   );

@@ -5,7 +5,13 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-export const Main = styled.ScrollView``;
+export const Main = styled.View`
+  flex: 1;
+`;
+
+export const MainScroll = styled.ScrollView`
+  padding-bottom: 20px;
+`;
 
 export const ChallengeContainer = styled.View``;
 
