@@ -20,6 +20,7 @@ import {
 } from "@expo-google-fonts/rajdhani";
 
 import { Routes } from "./src/routes";
+import { AuthProvider } from "./src/hooks/auth";
 
 export default function App() {
   LogBox.ignoreLogs(["Remote debugger"]);
@@ -38,9 +39,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ChallengesProvider>
-        <Routes />
-      </ChallengesProvider>
+      <AuthProvider>
+        <ChallengesProvider>
+          <Routes />
+        </ChallengesProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
