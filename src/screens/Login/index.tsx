@@ -3,6 +3,7 @@ import { StatusBar, Alert, ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
 import LogoSvg from "../../assets/icons/logo.svg";
 import { useAuth } from "../../hooks/auth";
+import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   LogoBackground,
@@ -13,20 +14,28 @@ import {
   LoginText,
 } from "./styles";
 
+interface UseNavigationProps {
+  navigate: (screen: string) => void;
+}
+
 function Login() {
   const [isLoadding, setIsLoadding] = useState(false);
   const { signInWithGoogle } = useAuth();
   const theme = useTheme();
+  const navigation = useNavigation<UseNavigationProps>();
 
   async function handleSignInWithGoogle() {
+    setIsLoadding(true);
+
     try {
-      setIsLoadding(true);
-      return await signInWithGoogle();
+      await signInWithGoogle();
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível conectar a conta google");
-      setIsLoadding(false);
     }
+
+    setIsLoadding(false);
   }
 
   return (

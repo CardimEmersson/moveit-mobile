@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "moveit",
+    "scheme": "moveit",
     "slug": "moveit",
     "version": "1.0.0",
     "assetBundlePatterns": [
@@ -26,5 +27,6 @@
       "package": "move.it"
     }
   },
-  "name": "moveit"
+  "name": "moveit",
+  "scheme": "moveit"
 }

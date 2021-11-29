@@ -1,4 +1,5 @@
 import { RFValue } from "react-native-responsive-fontsize";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -35,4 +36,22 @@ export const LevelNumber = styled.Text`
   margin-left: 10px;
   font-family: ${({ theme }) => theme.fonts.primary_400};
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const LogoutButton = styled(RectButton)`
+  margin-left: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  color: ${({ theme }) => theme.colors.red};
+
+  font-family: ${({ theme }) => theme.fonts.primary_600};
+  font-size: ${RFValue(16)}px;
+`;
+
+export const TextLogout = styled.Text`
+  color: ${({ theme }) => theme.colors.red};
+  font-family: ${({ theme }) => theme.fonts.primary_600};
+  font-size: ${RFValue(16)}px;
 `;

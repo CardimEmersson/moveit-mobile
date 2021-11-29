@@ -8,6 +8,12 @@ import React, {
 import * as AuthSession from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+type DataChallenges = {
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
+};
+
 interface User {
   id: string;
   name: string;
@@ -20,6 +26,7 @@ interface IAuthContextData {
   signInWithGoogle(): Promise<void>;
   signOut(): Promise<void>;
   userStorageLoadding: boolean;
+  dataChallenge: DataChallenges;
 }
 
 interface AuthorizationResponse {
@@ -31,8 +38,8 @@ interface AuthorizationResponse {
 
 // TODO PROCESS.ENV
 const CLIENT_ID =
-  "606841659740-q1bn0rsjdm1ghrs8nl0r2mmi9hglme03.apps.googleusercontent.com";
-const REDIRECT_URI = "https://auth.expo.io/@moveit/moveit";
+  "189398350865-h3bo7gcch2jug9g00spqid1r31cbdmrt.apps.googleusercontent.com";
+const REDIRECT_URI = "https://auth.expo.io/@emersson/moveit";
 //
 
 const AuthContext = createContext({} as IAuthContextData);
@@ -45,6 +52,10 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
   const userStorageKey = "@moveit:user";
   const [userStorageLoadding, setUserStorageLoadding] = useState(true);
+
+  const [dataChallenge, setDataChallenge] = useState<DataChallenges>(
+    {} as DataChallenges
+  );
 
   async function signInWithGoogle() {
     try {
@@ -59,7 +70,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       if (type === "success") {
         const response = await fetch(
-          `https://googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`
+          `https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${params.access_token}`
         );
 
         const userInfo = await response.json();
@@ -70,6 +81,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           name: userInfo.given_name,
           photo: userInfo.picture,
         });
+
         await AsyncStorage.setItem(
           userStorageKey,
           JSON.stringify({
@@ -79,8 +91,8 @@ function AuthProvider({ children }: AuthProviderProps) {
             photo: userInfo.picture,
           })
         );
-        // TODO REMOVE CONSOLE
-        console.log(user);
+
+        loadData(userInfo.id);
       }
     } catch (error) {
       throw new Error(error);
@@ -88,8 +100,19 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOut() {
-    setUser({} as User);
     await AsyncStorage.removeItem(userStorageKey);
+    await AsyncStorage.removeItem(`@moveit:data-${user.id}`);
+    setUser({} as User);
+    setDataChallenge({} as DataChallenges);
+  }
+
+  async function loadData(userId: string) {
+    const response = await AsyncStorage.getItem(`@moveit:data-${userId}`);
+    const data = response
+      ? (JSON.parse(response) as DataChallenges)
+      : ({} as DataChallenges);
+
+    setDataChallenge(data);
   }
 
   useEffect(() => {
@@ -99,10 +122,13 @@ function AuthProvider({ children }: AuthProviderProps) {
       if (userStorage) {
         const userLogged = JSON.parse(userStorage) as User;
         setUser(userLogged);
+        loadData(userLogged.id);
       }
-      setUserStorageLoadding(false);
     }
+
     loadUserStorageData();
+
+    setUserStorageLoadding(false);
   }, []);
 
   return (
@@ -112,6 +138,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         signOut,
         user,
         userStorageLoadding,
+        dataChallenge,
       }}
     >
       {children}

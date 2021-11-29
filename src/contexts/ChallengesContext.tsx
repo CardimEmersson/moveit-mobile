@@ -1,5 +1,8 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useState, useEffect } from "react";
 import challenges from "../data/challenges.json";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
+import { useAuth } from "../hooks/auth";
 
 export type typeChallenge = "body" | "eye";
 
@@ -23,6 +26,7 @@ interface ChallengesContextData {
   handleCurrentExperience: (newCurrentExperience: number) => void;
   completeChallenge: () => void;
   closeLevelUpModal: () => void;
+  handleChallengesCompleted: (newChallengesCompleteds: number) => void;
 }
 
 const ChallengesContext = createContext({} as ChallengesContextData);
@@ -32,7 +36,9 @@ interface ChallengesProviderProps {
 }
 
 function ChallengesProvider({ children }: ChallengesProviderProps) {
-  const [level, setLevel] = useState(1);
+  const { user, dataChallenge } = useAuth();
+
+  const [level, setLevel] = useState(0);
 
   const [currentExperience, setCurrentExperience] = useState(0);
 
@@ -43,6 +49,33 @@ function ChallengesProvider({ children }: ChallengesProviderProps) {
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
+
+  async function saveData() {
+    const dataKey = `@moveit:data-${user.id}`;
+
+    try {
+      const dataFormated = {
+        level,
+        currentExperience,
+        challengesCompleted,
+      };
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
+    } catch (err) {
+      Alert.alert("Não foi possível salvar os dados");
+    }
+  }
+
+  useEffect(() => {
+    user.id && saveData();
+  }, [level, currentExperience, challengesCompleted]);
+
+  useEffect(() => {
+    dataChallenge.level && handleLevel(dataChallenge.level);
+    dataChallenge.challengesCompleted &&
+      handleChallengesCompleted(dataChallenge.challengesCompleted);
+    dataChallenge.currentExperience &&
+      handleCurrentExperience(dataChallenge.currentExperience);
+  }, [dataChallenge]);
 
   function levelUp() {
     setLevel(level + 1);
@@ -91,6 +124,10 @@ function ChallengesProvider({ children }: ChallengesProviderProps) {
     setChallengesCompleted(challengesCompleted + 1);
   }
 
+  const handleChallengesCompleted = (newChallengesCompleteds: number) => {
+    setChallengesCompleted(newChallengesCompleteds);
+  };
+
   return (
     <ChallengesContext.Provider
       value={{
@@ -107,6 +144,7 @@ function ChallengesProvider({ children }: ChallengesProviderProps) {
         handleCurrentExperience,
         completeChallenge,
         closeLevelUpModal,
+        handleChallengesCompleted,
       }}
     >
       {children}
